@@ -1,0 +1,30 @@
+model:
+  arch: mini_gpt4
+  model_type: pretrain_vicuna
+  freeze_vit: True
+  freeze_qformer: True
+  max_txt_len: 160
+  end_sym: "###"
+  low_resource: True
+  prompt_path: ""
+  prompt_template: '###Human: {} ###Assistant: '
+  ckpt: '/home/cpi12/Projects/Visual Adversarial/ckpts/pretrained_minigpt4.pth'
+  llama_model: '/home/cpi12/Projects/Visual Adversarial/vicuna-13b-1.1/vicuna-13b-v1.1/'
+
+  load_in_8bit: False
+  torch_dtype: "float16"
+
+  device_map: "auto"
+
+datasets:
+  cc_sbu_align:
+    vis_processor:
+      train:
+        name: "blip2_image_eval"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption"
+
+run:
+  task: image_text_pretrain
